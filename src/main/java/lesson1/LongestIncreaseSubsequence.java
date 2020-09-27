@@ -13,6 +13,7 @@ public class LongestIncreaseSubsequence {
     public static void main(String[] args) {
 
         List<Integer> list = Arrays.asList(3, 4, 9, 2, 5, 1);
+//        List<Integer> list = Arrays.asList(4, 3, 2, 1);
         Result result = findLongestIncreaseSubseq(list);
         System.out.println(result.getAns());
         System.out.println(result.getPath());
