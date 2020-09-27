@@ -1,45 +1,22 @@
 package lesson2.city_game;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class EulerChecker {
 
     public static boolean checkForEulerPath(Map<Character, List<CityGame.Edge>> graph) {
-        Counter oddVertex = new Counter(0);
-        graph.keySet().forEach(vertex -> {
-            if (deg(vertex, graph).getDegSum() % 2 != 0) {
-                oddVertex.increment();
-            }
-        });
+        List<Deg> vertexDeg = new ArrayList<>();
+        graph.keySet().forEach(vertex -> vertexDeg.add(deg(vertex, graph)));
+        long oddVertex = vertexDeg.stream()
+                .filter(deg -> deg.getDegSum() % 2 != 0)
+                .count();
 
-        if (oddVertex.getCount() > 2) {
-            return false;
-        }
-
-//        Map<Character, Boolean> visited = new HashMap<>();
-//        graph.keySet().stream()
-//                .filter(vertex -> deg(vertex, graph) > 0)
-//                .findAny(vertex -> dfs(vertex, visited, graph));
-        return true;
-    }
-
-
-    public static int dfs(Character vertex, Map<Character, Boolean> visited, Map<Character, List<CityGame.Edge>> graph) {
-        visited.put(vertex, true);
-        Counter visitedVertexes = new Counter(1);
-        graph.get(vertex).forEach(edge -> {
-            char v = edge.getTo();
-            if (visited.get(v) == null) {
-                visitedVertexes.incrementBy(dfs(v, visited, graph));
-            }
-        });
-        return visitedVertexes.count;
+        return oddVertex <= 2 && (vertexDeg.stream().anyMatch(Deg::isStartVertex) && vertexDeg.stream().anyMatch(Deg::isEndVertex));
     }
 
     public static Deg deg(Character vertex, Map<Character, List<CityGame.Edge>> graph) {
@@ -55,20 +32,6 @@ public class EulerChecker {
     }
 
     @Data
-    @AllArgsConstructor
-    private static class Counter {
-        private int count;
-
-        public void increment() {
-            count ++;
-        }
-
-        public void incrementBy(int by) {
-            count += by;
-        }
-    }
-
-    @Data
     @Builder
     public static class Deg {
         private int inCount;
@@ -76,6 +39,14 @@ public class EulerChecker {
 
         public int getDegSum() {
             return inCount + outCount;
+        }
+
+        public boolean isStartVertex() {
+            return outCount - inCount == 1;
+        }
+
+        public boolean isEndVertex() {
+            return inCount - outCount == 1;
         }
     }
 

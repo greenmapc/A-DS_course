@@ -8,7 +8,7 @@ import java.util.*;
 public class CityGame {
 
     public static void main(String[] args) throws IllegalAccessException {
-        List<String> words = Arrays.asList("b", "ab", "bc", "bb");
+        List<String> words = Arrays.asList("b", "ab", "bc", "bb", "df", "fd");
         Map<Character, List<Edge>> graph = graphCreation(words);
         if (!EulerChecker.checkForEulerPath(graph)){
             throw new IllegalAccessException("Game can not be ended success");
@@ -16,6 +16,9 @@ public class CityGame {
 
         Character startVertex = findStartVertex(graph);
         List<String> wordOrder = findEulerPath(graph, startVertex);
+        if (wordOrder.size() != words.size()) {
+            throw new IllegalAccessException("Game can not be ended success");
+        }
         System.out.println(wordOrder);
 
     }
