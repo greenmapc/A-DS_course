@@ -8,47 +8,59 @@ import java.util.*;
 public class CityGame {
 
     public static void main(String[] args) throws IllegalAccessException {
-        List<String> words = Arrays.asList("b", "ab", "bc", "bb", "df", "fd");
+        List<String> words = Arrays.asList("b", "ab", "bc", "bb");//, "df", "fd");
         Map<Character, List<Edge>> graph = graphCreation(words);
         if (!EulerChecker.checkForEulerPath(graph)){
             throw new IllegalAccessException("Game can not be ended success");
         }
 
         Character startVertex = findStartVertex(graph);
-        List<String> wordOrder = findEulerPath(graph, startVertex);
-        if (wordOrder.size() != words.size()) {
+        List<Character> vertexOrder = findEulerPath(graph, startVertex);
+        if (vertexOrder.size() - 1 != words.size()) {
             throw new IllegalAccessException("Game can not be ended success");
         }
+        List<String> wordOrder = getWordOrder(vertexOrder, graph);
         System.out.println(wordOrder);
 
     }
 
-    public static List<String> findEulerPath(Map<Character, List<Edge>> graph, Character startVertex) {
+    public static List<String> getWordOrder(List<Character> vertexOrder, Map<Character, List<Edge>> graph) {
         List<String> wordOrder = new ArrayList<>();
+        for (int i = 0; i < vertexOrder.size() - 1; i  ++) {
+            Character startVertex = vertexOrder.get(i);
+            Character endVertex = vertexOrder.get(i + 1);
+            Edge edge = graph.get(startVertex).stream()
+                    .filter(Edge::isDeleted)
+                    .filter(e -> e.getWord().charAt(e.getWord().length() - 1) == endVertex)
+                    .findAny()
+                    .get();
+            edge.setDeleted(false);
+            wordOrder.add(edge.getWord());
+        }
+        return wordOrder;
+    }
+
+    public static List<Character> findEulerPath(Map<Character, List<Edge>> graph, Character startVertex) {
+        List<Character> wordOrder = new ArrayList<>();
         Deque<Character> stack = new LinkedList<>();
         stack.push(startVertex);
         while (!stack.isEmpty()) {
-            Character currentVertex = stack.pop();
+            Character currentVertex = stack.peek();
             boolean findIntermediateVertex = false;
             for (Edge edge : graph.get(currentVertex)) {
-                if (!edge.isDeleted() && EulerChecker.deg(edge.getTo(), graph).getDegSum() % 2 == 0) {
-                    wordOrder.add(edge.word);
+                if (!edge.isDeleted()) {
                     edge.setDeleted();
                     stack.push(edge.getTo());
                     findIntermediateVertex = true;
+                    break;
                 }
             }
             if (!findIntermediateVertex) {
-                graph.get(currentVertex).forEach(edge -> {
-                    if (!edge.isDeleted()) {
-                        wordOrder.add(edge.word);
-                        edge.setDeleted();
-                        stack.push(edge.getTo());
-                    }
-                });
+                wordOrder.add(stack.pop());
             }
         }
 
+        Collections.reverse(wordOrder);
         return wordOrder;
     }
 
