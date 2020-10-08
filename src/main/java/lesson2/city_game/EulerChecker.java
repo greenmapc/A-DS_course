@@ -23,7 +23,7 @@ public class EulerChecker {
         int outCount = graph.get(vertex).size();
         int inCount = (int) graph.values().stream()
                 .flatMap(List::stream)
-                .filter(word -> word.getTo() == vertex)
+                .filter(word -> word.getTo().equals(vertex))
                 .count();
         return Deg.builder()
                 .outCount(outCount)
