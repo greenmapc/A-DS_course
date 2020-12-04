@@ -1,4 +1,4 @@
-package lesson2.domino_game;
+package iteration1.domino_game;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

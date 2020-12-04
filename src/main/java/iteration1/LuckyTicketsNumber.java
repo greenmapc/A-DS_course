@@ -1,10 +1,10 @@
-package lesson3;
+package iteration1;
 
 import java.math.BigInteger;
 
 public class LuckyTicketsNumber {
 
-    static final int N = 50;
+    static final int N = 3;
     static final int MAX_SUM = N * 9;
     static BigInteger[][] arr = new BigInteger[N + 1][MAX_SUM + 1];
 
@@ -34,6 +34,7 @@ public class LuckyTicketsNumber {
             result = result.add(arr[N][i].multiply(arr[N][i]));
         }
         System.out.println(result);
+        System.out.println(result.toString().length());
 
     }
 

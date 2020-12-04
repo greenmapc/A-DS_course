@@ -1,4 +1,4 @@
-package lesson1;
+package iteration1;
 
 import java.math.BigInteger;
 

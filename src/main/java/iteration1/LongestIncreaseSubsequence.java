@@ -1,8 +1,7 @@
-package lesson1;
+package iteration1;
 
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -72,7 +71,7 @@ public class LongestIncreaseSubsequence {
             }
 
         position = p[ans];
-        List<Integer> path = new ArrayList<>();
+        List<Integer> path = new ArrayList<Integer>();
         while (position != Integer.MAX_VALUE) {
             path.add(position);
             position = pred[position];

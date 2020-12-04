@@ -1,4 +1,4 @@
-package lesson2.city_game;
+package iteration1.city_game;
 
 import lombok.Builder;
 import lombok.Data;

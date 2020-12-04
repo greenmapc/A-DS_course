@@ -1,4 +1,4 @@
-package lesson2.city_game;
+package iteration1.city_game;
 
 import lombok.Builder;
 import lombok.Data;
@@ -8,7 +8,7 @@ import java.util.*;
 public class CityGame {
 
     public static void main(String[] args) throws IllegalAccessException {
-        List<String> words = Arrays.asList("казан", "красноярск", "новосибирск", "нижнийтагил");//, "df", "fd");
+        List<String> words = Arrays.asList("казан", "ньюйорк","нижнийтагил");
         Map<Character, List<Edge>> graph = graphCreation(words);
         if (!EulerChecker.checkForEulerPath(graph)){
             throw new IllegalAccessException("Game can not be ended success");
