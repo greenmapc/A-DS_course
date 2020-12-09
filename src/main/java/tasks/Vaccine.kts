@@ -1,3 +1,4 @@
+//
 fun getCoronaPoison() {
     val firstSeq = intArrayOf(1, 5, 3, 7, 2, 1, 6) // 1f + 2s + 5f + 6s + 1s + 3f + 6f
     val bridgeSeq = intArrayOf(1, 2, 1, 1, 2, 3)

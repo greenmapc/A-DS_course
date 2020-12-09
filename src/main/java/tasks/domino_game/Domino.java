@@ -1,4 +1,4 @@
-package iteration1.domino_game;
+package tasks.domino_game;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

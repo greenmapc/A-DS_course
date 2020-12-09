@@ -1,4 +1,4 @@
-package iteration1.city_game;
+package tasks.city_game;
 
 import lombok.Builder;
 import lombok.Data;

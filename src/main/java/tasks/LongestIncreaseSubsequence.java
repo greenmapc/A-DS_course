@@ -1,4 +1,4 @@
-package iteration1;
+package tasks;
 
 import lombok.Builder;
 import lombok.Data;

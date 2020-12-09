@@ -8,7 +8,7 @@
  * Legal use of the software provides receipt of a license from the right holder only.
  */
 
-package iteration2.min_cut;
+package incorrect_tasks;
 
 
 import java.util.LinkedList;

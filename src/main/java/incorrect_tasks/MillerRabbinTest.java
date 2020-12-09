@@ -8,7 +8,7 @@
  * Legal use of the software provides receipt of a license from the right holder only.
  */
 
-package iteration2.miller_rabbin;
+package incorrect_tasks;
 
 import java.math.BigInteger;
 import java.util.Random;

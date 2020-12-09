@@ -8,7 +8,7 @@
  * Legal use of the software provides receipt of a license from the right holder only.
  */
 
-package iteration2.graham;
+package tasks.graham;
 
 import java.util.Comparator;
 
@@ -36,7 +36,7 @@ public class Point implements Comparable<Point>{
         return Integer.compare(this.x, that.x);
     }
 
-    //Возвращает 1, если a→b→c - поворот против часовой стрелки (т.е. угол возрастает)
+    //Возвращает 1, если a -> b -> c - поворот против часовой стрелки (т.е. угол возрастает)
     // с помощью векторного произведения
     static int ccw(Point a, Point b, Point c) {
         int area2 = (b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x);

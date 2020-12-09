@@ -8,7 +8,7 @@
  * Legal use of the software provides receipt of a license from the right holder only.
  */
 
-package iteration2.graham;
+package tasks.graham;
 
 import java.util.Random;
 
