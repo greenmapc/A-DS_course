@@ -21,7 +21,10 @@ class GrahamScan {
         int n = pts.length; //копия числа вершин
         Point[] points = new Point[n];
         System.arraycopy(pts, 0, points, 0, n);
+
+        // сортируем все точки, чтобы найти стартовую точку
         Arrays.sort(points);
+        // сортируем все точки по полярному углу, относительно стартовой точки
         Arrays.sort(points, 1, n, points[0].polarOrder());
 
         stack.push(points[0]);       // p[0] стартовая точка
@@ -44,15 +47,15 @@ class GrahamScan {
             //peek - первый элемент
             Point top = stack.pop();
 
-            //проверка на поворот, пока он неправильный
+            //проверка на поворот, если он правый - удаляем из ответа
             while (Point.ccw(stack.peek(), top, points[i]) <= 0) {
                 top = stack.pop();
             }
+
+            //как только поворот левый - добавляем в ответ
             stack.push(top);
             stack.push(points[i]);
         }
-
-        assert isConvex();
     }
 
     Iterable<Point> hull() {
@@ -61,28 +64,4 @@ class GrahamScan {
         return s;
     }
 
-    int number(){ //количество точек в готовом многоугольнике
-        int  n2 = 0;
-        for (Point p : stack) ++n2;
-        return n2;
-    }
-
-    //проверить, является ли граница многоугольника строго выпуклой
-    private boolean isConvex() {
-        int n = stack.size();
-        if (n <= 2) return true;
-
-        Point[] points = new Point[n];
-        int k = 0;
-        for (Point p : hull()) {
-            points[k++] = p;
-        }
-
-        for (int i = 0; i < n; i++) {
-            if (Point.ccw(points[i], points[(i + 1) % n], points[(i + 2) % n]) <= 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

@@ -26,14 +26,6 @@ public class Main {
             points[i] = new Point(x, y);
         }
         GrahamScan graham = new GrahamScan(points);
-        System.out.println("------");
-        if (n == graham.number()){
-            System.out.println("the hull exists");
-        }
-        else {
-            System.out.println("there is no hull with ALL points");
-            System.out.println("Possible hull:");
-        }
         for (Point p : graham.hull()) {
             System.out.println("(" + p.x() + ";" + p.y() + ")");
         }
