@@ -1,13 +1,3 @@
-/*
- * Copyright 2020 Russian Post
- *
- * This source code is Russian Post Confidential Proprietary.
- * This software is protected by copyright. All rights and titles are reserved.
- * You shall not use, copy, distribute, modify, decompile, disassemble or reverse engineer the software.
- * Otherwise this violation would be treated by law and would be subject to legal prosecution.
- * Legal use of the software provides receipt of a license from the right holder only.
- */
-
 package tasks.graham;
 
 import java.util.Random;
@@ -26,15 +16,6 @@ public class Main {
             points[i] = new Point(x, y);
         }
         GrahamScan graham = new GrahamScan(points);
-        System.out.println("------");
-        //количество точек в готовом многоугольнике
-        if (n == graham.number()){
-            System.out.println("the hull exists");
-        }
-        else {
-            System.out.println("there is no hull with ALL points");
-            System.out.println("Possible hull:");
-        }
         for (Point p : graham.hull()) {
             System.out.println("(" + p.x() + ";" + p.y() + ")");
         }

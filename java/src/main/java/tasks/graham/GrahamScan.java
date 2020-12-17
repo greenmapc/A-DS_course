@@ -1,13 +1,3 @@
-/*
- * Copyright 2020 Russian Post
- *
- * This source code is Russian Post Confidential Proprietary.
- * This software is protected by copyright. All rights and titles are reserved.
- * You shall not use, copy, distribute, modify, decompile, disassemble or reverse engineer the software.
- * Otherwise this violation would be treated by law and would be subject to legal prosecution.
- * Legal use of the software provides receipt of a license from the right holder only.
- */
-
 package tasks.graham;
 
 import java.util.Arrays;
@@ -21,9 +11,8 @@ class GrahamScan {
         int n = pts.length; //копия числа вершин
         Point[] points = new Point[n];
         System.arraycopy(pts, 0, points, 0, n);
-        //находим крайнюю левую точку, которая точно входит в оболочку
         Arrays.sort(points);
-        //сортируем массив с помощью компаратора point
+        // сортируем все точки по полярному углу, относительно стартовой точки
         Arrays.sort(points, 1, n, points[0].polarOrder());
 
         //кладем в стек первую вершину
@@ -48,16 +37,15 @@ class GrahamScan {
             //peek - первый элемент
             Point top = stack.pop();
 
-            //проверка на поворот, пока он неправильный
+            //проверка на поворот, если он правый - удаляем из ответа
             while (Point.ccw(stack.peek(), top, points[i]) <= 0) {
                 top = stack.pop();
             }
+
+            //как только поворот левый - добавляем в ответ
             stack.push(top);
             stack.push(points[i]);
         }
-
-        //завершающая проверка на то что оболочка явл-ся строго выпуклой
-        assert isConvex();
     }
 
     Iterable<Point> hull() {
@@ -66,28 +54,4 @@ class GrahamScan {
         return s;
     }
 
-    int number(){ //количество точек в готовом многоугольнике
-        int  n2 = 0;
-        for (Point p : stack) ++n2;
-        return n2;
-    }
-
-    //проверить, является ли граница многоугольника строго выпуклой
-    private boolean isConvex() {
-        int n = stack.size();
-        if (n <= 2) return true;
-
-        Point[] points = new Point[n];
-        int k = 0;
-        for (Point p : hull()) {
-            points[k++] = p;
-        }
-
-        for (int i = 0; i < n; i++) {
-            if (Point.ccw(points[i], points[(i + 1) % n], points[(i + 2) % n]) <= 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

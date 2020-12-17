@@ -10,6 +10,8 @@ public class JarvisAlgorithm {
 
     public static Point[] convexHull(Point[] a) {
         int m = 0;
+
+        //поиск стартовой точки
         for (int i = 1; i < a.length; i++) {
             if (a[i].x > a[m].x) m = i;
             else if (a[i].x == a[m].x && a[i].y < a[m].y) m = i;
@@ -27,6 +29,8 @@ public class JarvisAlgorithm {
 
         do {
             for (int j = 1; j < a.length; j++) {
+                // ищем две точки с наибольшим полярным углом,
+                // и если поворот совпадает, проверяем по удаленности
                 if ((cross(p[k], a[min], a[j]) < 0 ||
                         cross(p[k], a[min], a[j]) == 0 &&
                                 dist2(p[k], a[min]) < dist2(p[k], a[j])) && !visited.contains(j)) {
@@ -43,6 +47,7 @@ public class JarvisAlgorithm {
         return Arrays.copyOf(p, k);
     }
 
+    //перекрестное умножение векторов
     private static long cross(Point a1, Point a2, Point b2) {
         return (long) (a2.x - a1.x) * (b2.y - a1.y) - (long) (b2.x -a1.x) * (a2.y - a1.y);
     }
