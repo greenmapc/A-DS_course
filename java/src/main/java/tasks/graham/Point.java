@@ -55,7 +55,7 @@ public class Point implements Comparable<Point>{
             int dy2 = q2.y - y;
             if      (dy1 >= 0 && dy2 < 0) return -1;    // q1 сверху; q2 снизу
             else if (dy2 >= 0 && dy1 < 0) return +1;    // q1 снизу; q2 сверху
-            else if (dy1 == 0 && dy2 == 0) {            // коллинеарные
+            else if (dy1 == 0 && dy2 == 0) {            // коллинеарные по y
                 if      (dx1 >= 0 && dx2 < 0) return -1;
                 else if (dx2 >= 0 && dx1 < 0) return +1;
                 else                          return  0;

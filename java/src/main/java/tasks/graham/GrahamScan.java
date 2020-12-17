@@ -21,15 +21,19 @@ class GrahamScan {
         int n = pts.length; //копия числа вершин
         Point[] points = new Point[n];
         System.arraycopy(pts, 0, points, 0, n);
+        //находим крайнюю левую точку, которая точно входит в оболочку
         Arrays.sort(points);
+        //сортируем массив с помощью компаратора point
         Arrays.sort(points, 1, n, points[0].polarOrder());
 
+        //кладем в стек первую вершину
         stack.push(points[0]);       // p[0] стартовая точка
 
         // найти индекс k1 первой точки, не равной points[0]
         int k1;
         for (k1 = 1; k1 < n; k1++)
             if (!points[0].equals(points[k1])) break;
+            //если ничего не нашли - выходим
         if (k1 == n) return;
 
         // найти индекс k2 первой точки, не коллинеарной с points[0] и points[k1]
@@ -52,6 +56,7 @@ class GrahamScan {
             stack.push(points[i]);
         }
 
+        //завершающая проверка на то что оболочка явл-ся строго выпуклой
         assert isConvex();
     }
 

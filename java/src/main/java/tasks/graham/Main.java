@@ -27,6 +27,7 @@ public class Main {
         }
         GrahamScan graham = new GrahamScan(points);
         System.out.println("------");
+        //количество точек в готовом многоугольнике
         if (n == graham.number()){
             System.out.println("the hull exists");
         }
